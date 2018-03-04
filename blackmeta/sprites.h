@@ -11,29 +11,19 @@
  * @copyright   Copyright (c) Richard Déloge (richarddeloge@gmail.com)
  *
  * @license     http://teknoo.software/license/mit         MIT License
+ * 
+ * @author      Andy O'Neil <https://github.com/aoneill01>
  * @author      Richard Déloge <richarddeloge@gmail.com>
  */
 
+#ifndef sprite_h
+#define sprite_h
 
-#ifndef screen_h
-#define screen_h
+#include <Gamebuino-Meta.h>
 
-#include "desk.h"
-#include "workflow.h"
-
-class Screen
-{
-  private:
-    Workflow* workflow;  
-    Desk* playerDesk;
-    Desk* bankDesk;
-
-  public:
-    Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk);
-
-    void drawDesks();
-    
-    void updateDisplay();
-};
+extern Image backgroundImage;
+extern Image cardSprite;
+extern Image valueSprite;
+extern Image suitSprite;
 
 #endif

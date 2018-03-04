@@ -15,6 +15,7 @@
  */
 #include <Gamebuino-Meta.h>
 #include "screen.h"
+#include "sprites.h"
 
 Screen::Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
 {
@@ -23,12 +24,28 @@ Screen::Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
   this->bankDesk = &bankDesk;
 }
 
+void Screen::drawDesks()
+{  
+  //clear the screen
+  gb.display.clear();
+
+  //Draw the brackground
+  gb.display.drawImage(0, 0, backgroundImage);
+
+  //Write title
+  gb.display.setCursor(20, 2);
+  gb.display.println("Black Meta");
+
+  //Write placeholder' labels
+  gb.display.setCursor(2, 15);
+  gb.display.println("Bank: ");
+  gb.display.setCursor(2, 30);
+  gb.display.println("You: ");
+}
+
 void Screen::updateDisplay()
 {
-  // clear the screen
-  gb.display.clear();
-  gb.lights.clear();
-
+  return;
   gb.display.println("Black Meta\n");
   gb.display.print("Bank: ");
   gb.display.println(this->bankDesk->listCardsCodes());

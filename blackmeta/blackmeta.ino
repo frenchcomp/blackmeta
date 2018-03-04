@@ -30,6 +30,8 @@ Screen gbScreen(gameWorkflow, playerDesk, bankDesk);
 void setup() 
 {
   gb.begin();
+
+  gbScreen.drawDesks();
 }
 
 void loop()
