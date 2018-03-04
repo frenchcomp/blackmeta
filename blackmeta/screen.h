@@ -28,6 +28,10 @@ class Screen
     Desk* playerDesk;
     Desk* bankDesk;
 
+    void drawCard(String card);
+    void drawSuit(ushort x, ushort y, char color);
+    void drawValue(ushort x, ushort y, short value, bool isRed);
+    
   public:
     Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk);
 

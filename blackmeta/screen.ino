@@ -17,6 +17,28 @@
 #include "screen.h"
 #include "sprites.h"
 
+void Screen::drawCard(ushort x, ushort y, String code) {
+  gb.display.drawImage(x, y, cardSprite);
+ 
+  this->drawSuit(x + 1, y + 2, card.getSuit());
+  this->drawValue(x + 5, y + 7, card.getValue(), card.isRed());
+}
+
+void Screen::drawSuit(ushort x, ushort y, char color) {
+  suitSprite.setFrame(suit);
+  gb.display.drawImage(x, y, suitSprite);
+}
+
+void Screen::drawValue(ushort x, ushort y, short value, bool isRed) {
+  valueSprite.setFrame(value + (isRed ? 14 : 0));
+  gb.display.drawImage(x, y, valueSprite);
+  
+  if (value == ten) {
+    valueSprite.setFrame(isRed ? 14 : 0);
+    gb.display.drawImage(x - 4, y, valueSprite);
+  }
+}
+
 Screen::Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
 {
   this->workflow = &workflow;
