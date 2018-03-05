@@ -21,12 +21,14 @@
 #include "workflow.h"
 #include "screen.h"
 #include "sprites.h"
+#include "led.h"
 
 Dealer croupier;
 Desk playerDesk;
 Desk bankDesk;
 Workflow gameWorkflow(croupier, playerDesk, bankDesk);
 Screen gbScreen(gameWorkflow, playerDesk, bankDesk);
+Led gbLed(gameWorkflow, playerDesk, bankDesk);
 
 void setup() 
 {
@@ -34,6 +36,7 @@ void setup()
 
   //clear the screen
   gb.display.clear();
+  gb.lights.clear();
 
   gbScreen.setSprite(extBackgroundImage, extCardSprite, extValueSprite, extSuitSprite);
   gbScreen.drawDesks();
@@ -50,6 +53,7 @@ void loop()
   );
 
   gbScreen.updateDisplay();
+  gbLed.updateLights();
 
   gameWorkflow.run();
 }

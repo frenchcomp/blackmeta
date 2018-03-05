@@ -21,4 +21,23 @@
 #include "desk.h"
 #include "workflow.h"
 
+class Led
+{
+  private:
+    Workflow* workflow;  
+    Desk* playerDesk;
+    Desk* bankDesk;
+
+  public:
+    /**
+     * Constructor to set mandatory desks and workflow
+     */
+    Led(Workflow &workflow, Desk &playerDesk, Desk &bankDesk);
+
+    /**
+     * To refresh lights
+     */
+    void updateLights();
+};
+
 #endif

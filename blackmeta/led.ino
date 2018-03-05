@@ -13,3 +13,44 @@
  * @license     http://teknoo.software/license/mit         MIT License
  * @author      Richard Déloge <richarddeloge@gmail.com>
  */
+
+ #include <Gamebuino-Meta.h>
+#include "led.h"
+
+/**
+ * Constructor to set mandatory desks and workflow
+ */
+Led::Led(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
+{
+  this->workflow = &workflow;
+  this->playerDesk = &playerDesk;
+  this->bankDesk = &bankDesk;
+}
+
+/**
+ * To refresh lights
+ */
+void Led::updateLights()
+{
+  switch (this->workflow->getCurrentStep()) {
+    case Workflow::stepPlayerTurn:
+        gb.lights.setColor(WHITE);      
+      break;
+    case Workflow::stepDealing:
+    case Workflow::stepPlayerHit:
+    case Workflow::stepBankDealing:
+        gb.lights.setColor(LIGHTBLUE); 
+      break;
+    case Workflow::stepEnd:
+      if (this->playerDesk->hasWon(*this->bankDesk)) {
+        gb.lights.setColor(LIGHTGREEN);        
+      } else {
+        gb.lights.setColor(RED);
+      }
+      
+      break;
+  }  
+
+  gb.lights.fill();
+}
+
