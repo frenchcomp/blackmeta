@@ -20,6 +20,7 @@
 #include "dealer.h"
 #include "workflow.h"
 #include "screen.h"
+#include "sprites.h"
 
 Dealer croupier;
 Desk playerDesk;
@@ -34,6 +35,7 @@ void setup()
   //clear the screen
   gb.display.clear();
 
+  gbScreen.setSprite(extBackgroundImage, extCardSprite, extValueSprite, extSuitSprite);
   gbScreen.drawDesks();
 }
 

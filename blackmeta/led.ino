@@ -11,19 +11,5 @@
  * @copyright   Copyright (c) Richard Déloge (richarddeloge@gmail.com)
  *
  * @license     http://teknoo.software/license/mit         MIT License
- * 
- * @author      Andy O'Neil <https://github.com/aoneill01>
  * @author      Richard Déloge <richarddeloge@gmail.com>
  */
-
-#ifndef sprite_h
-#define sprite_h
-
-#include <Gamebuino-Meta.h>
-
-extern Image extBackgroundImage;
-extern Image extCardSprite;
-extern Image extValueSprite;
-extern Image extSuitSprite;
-
-#endif

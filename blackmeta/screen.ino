@@ -15,55 +15,10 @@
  */
 #include <Gamebuino-Meta.h>
 #include "screen.h"
-#include "sprites.h"
 
-void Screen::drawCard(int16_t x, int16_t y, Card* card) {
-  gb.display.drawImage(x, y, cardSprite);
- 
-  this->drawSuit(x + 1, y + 2, card->getColor());
-  this->drawValue(x + 5, y + 7, card->getNumber(), card->isRed());
-}
-
-void Screen::drawSuit(int16_t x, int16_t y, Suit color) {
-  suitSprite.setFrame(color);
-  gb.display.drawImage(x, y, suitSprite);
-}
-
-void Screen::drawValue(int16_t x, int16_t y, Value number, bool isRed) {
-  valueSprite.setFrame(number + (isRed ? 14 : 0));
-  gb.display.drawImage(x, y, valueSprite);
-  
-  if (ten == number) {
-    valueSprite.setFrame(isRed ? 14 : 0);
-    gb.display.drawImage(x - 4, y, valueSprite);
-  }
-}
-
-Screen::Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
-{
-  this->workflow = &workflow;
-  this->playerDesk = &playerDesk;
-  this->bankDesk = &bankDesk;
-}
-
-void Screen::drawDesks()
-{  
-  //Draw the brackground
-  gb.display.drawImage(0, 0, backgroundImage);
-
-  //Write title
-  gb.display.clearTextVars();
-  gb.display.setColor(WHITE);
-  gb.display.setCursor(20, 2);
-  gb.display.println("Black Meta");
-
-  //Write placeholder' labels
-  gb.display.setCursor(2, 15);
-  gb.display.println("Bank: ");
-  gb.display.setCursor(2, 31);
-  gb.display.println("You: ");
-}
-
+/**
+ * To print last three cards dealed to the desk. All points are display in another placeholder
+ */
 void Screen::drawLastCards(int16_t y, Desk *desk)
 {
   int16_t i = 0;
@@ -77,9 +32,45 @@ void Screen::drawLastCards(int16_t y, Desk *desk)
   }
 }
 
+/**
+ * Sub function to draw the body of the card, without its color and number
+ */
+void Screen::drawCard(int16_t x, int16_t y, Card* card) {
+  gb.display.drawImage(x, y, *this->cardSprite);
+ 
+  this->drawSuit(x + 1, y + 2, card->getColor());
+  this->drawValue(x + 5, y + 7, card->getNumber(), card->isRed());
+}
+
+/**
+ * Sub function to draw, from the sprite cardSprite, the color of the card
+ */
+void Screen::drawSuit(int16_t x, int16_t y, Suit color) {
+  //Select the good frame (all suits are encoded into an unique sprite, it's like a crop)
+  this->suitSprite->setFrame(color);
+  gb.display.drawImage(x, y, *this->suitSprite);
+}
+
+/**
+ * Sub function to draw, from the sprint valueSprite, the value of the card
+ */
+void Screen::drawValue(int16_t x, int16_t y, Value number, bool isRed) {
+  //Select the good frame (all values are encoded into an unique sprite, it's like a crop)
+  this->valueSprite->setFrame(number + (isRed ? 14 : 0));
+  gb.display.drawImage(x, y, *this->valueSprite);
+  
+  if (ten == number) {
+    this->valueSprite->setFrame(isRed ? 14 : 0);
+    gb.display.drawImage(x - 4, y, *this->valueSprite);
+  }
+}
+
+/**
+ * Sub function to draw text actions to help user
+ */
 void Screen::drawActions()
 {  
-  gb.display.drawImage(0, 48, backgroundImage);
+  gb.display.drawImage(0, 48, *this->backgroundImage);
 
   gb.display.clearTextVars();
   gb.display.setColor(WHITE);
@@ -115,6 +106,10 @@ void Screen::drawActions()
   }
 }
 
+/**
+ * Sub function two draws points for each deck (with max total when there are an as)
+ * because all cards can not be displayed.
+ */
 void Screen::drawPoints(int16_t y, Desk *desk)
 {
   //Display background board
@@ -138,6 +133,51 @@ void Screen::drawPoints(int16_t y, Desk *desk)
   }
 }
 
+/**
+ * Constructor to set mandatory desks and workflow
+ */
+Screen::Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
+{
+  this->workflow = &workflow;
+  this->playerDesk = &playerDesk;
+  this->bankDesk = &bankDesk;
+}
+
+/**
+ * To register in the object sprite to use
+ */
+void Screen::setSprite(Image &backgroundImage, Image &cardSprite, Image &valueSprite, Image &suitSprite)
+{
+  this->backgroundImage = &backgroundImage;
+  this->cardSprite = &cardSprite;
+  this->valueSprite = &valueSprite;
+  this->suitSprite = &suitSprite;
+}
+
+/**
+ * Initial call to draw the empty desk or when the game is restarted
+ */
+void Screen::drawDesks()
+{  
+  //Draw the brackground
+  gb.display.drawImage(0, 0, *this->backgroundImage);
+
+  //Write title
+  gb.display.clearTextVars();
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(20, 2);
+  gb.display.println("Black Meta");
+
+  //Write placeholder' labels
+  gb.display.setCursor(2, 15);
+  gb.display.println("Bank: ");
+  gb.display.setCursor(2, 31);
+  gb.display.println("You: ");
+}
+
+/**
+ * To refresh the display following the workflow
+ */
 void Screen::updateDisplay()
 {  
   this->drawLastCards(10, this->bankDesk);
