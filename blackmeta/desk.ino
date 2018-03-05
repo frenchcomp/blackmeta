@@ -117,11 +117,17 @@ bool Desk::hasWon(Desk &otherDesk)
     return true;
   }
 
-  if (this->totalMax() > otherDesk.totalMax()) {
-    return true;
+  ushort myTotal = this->totalMax();
+  if (21 < myTotal) {
+    myTotal = this->totalMin();
   }
 
-  return false;
+  ushort yourTotal = otherDesk.totalMax();
+  if (21 < yourTotal) {
+    yourTotal = otherDesk.totalMin();
+  }
+
+  return myTotal > yourTotal;
 }
 
 /**
