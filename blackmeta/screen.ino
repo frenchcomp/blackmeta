@@ -103,9 +103,11 @@ void Screen::drawActions()
     case Workflow::stepEnd:
       if (this->playerDesk->hasWon(*this->bankDesk)) {
         gb.display.setCursor(8, 50);
+        gb.display.setColor(LIGHTGREEN);
         gb.display.print("Win - Press Menu");
       } else {
         gb.display.setCursor(6, 50);
+        gb.display.setColor(RED);
         gb.display.print("Lost - Press Menu");
       }
       
