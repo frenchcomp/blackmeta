@@ -52,6 +52,8 @@ void Screen::drawDesks()
   gb.display.drawImage(0, 0, backgroundImage);
 
   //Write title
+  gb.display.clearTextVars();
+  gb.display.setColor(WHITE);
   gb.display.setCursor(20, 2);
   gb.display.println("Black Meta");
 
@@ -78,6 +80,9 @@ void Screen::drawLastCards(int16_t y, Desk *desk)
 void Screen::drawActions()
 {  
   gb.display.drawImage(0, 48, backgroundImage);
+
+  gb.display.clearTextVars();
+  gb.display.setColor(WHITE);
   
   switch (this->workflow->getCurrentStep()) {
     case Workflow::stepDealing:
@@ -108,10 +113,36 @@ void Screen::drawActions()
   }
 }
 
+void Screen::drawPoints(int16_t y, Desk *desk)
+{
+  //Display background board
+  gb.display.setColor(BROWN);
+  gb.display.fillRect(59, y-1, 20, 7);
+  gb.display.setColor(DARKGRAY);
+  gb.display.fillRect(60, y, 18, 5);
+
+  //Display min total
+  gb.display.setColor(WHITE);
+  gb.display.setCursor(60, y);
+  ushort totalMin = desk->totalMin();
+  gb.display.println(totalMin);
+
+  //Display max total if diff, in red
+  ushort totalMax = desk->totalMax();
+  if (totalMin != totalMax) {
+    gb.display.setCursor(71, y);
+    gb.display.setColor(RED);
+    gb.display.println(totalMax);
+  }
+}
+
 void Screen::updateDisplay()
 {  
   this->drawLastCards(10, this->bankDesk);
   this->drawLastCards(27, this->playerDesk);
+  
+  this->drawPoints(15, this->bankDesk);
+  this->drawPoints(31, this->playerDesk);
   
   this->drawActions();
 }

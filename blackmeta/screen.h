@@ -33,7 +33,7 @@ class Screen
     void drawSuit(int16_t x, int16_t y, Suit color);
     void drawValue(int16_t x, int16_t y, Value number, bool isRed);
     void drawActions();
-    void drawPoints();
+    void drawPoints(int16_t y, Desk *desk);
     
   public:
     Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk);
