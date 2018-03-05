@@ -31,6 +31,9 @@ void setup()
 {
   gb.begin();
 
+  //clear the screen
+  gb.display.clear();
+
   gbScreen.drawDesks();
 }
 

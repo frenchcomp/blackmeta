@@ -77,9 +77,9 @@ class Desk {
     bool hasWon(Desk &otherDesk);
 
     /**
-     * To list cards's code present in the desk, separated by a coma
+     * To get the last card of the desk, or it's previous if the offset is great than 0.
      */
-    String listCardsCodes();
+    Card* getLastCard(unsigned int offset);
 };
 
 #endif

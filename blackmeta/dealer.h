@@ -29,12 +29,12 @@ class Dealer
     /**
      * To pick randomly a color
      */
-    char randomColor();
+    Suit randomColor();
 
     /**
      * To pick randomly a number (1-10, J, Q, K)
      */
-    ushort randomCard();
+    Value randomCard();
 
     /**
      * To determine the minimum value of the card (AS can give 1 or 11 points, J,Q,K give only 10).

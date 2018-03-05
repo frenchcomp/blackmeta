@@ -17,23 +17,23 @@
 #include "screen.h"
 #include "sprites.h"
 
-void Screen::drawCard(ushort x, ushort y, String code) {
+void Screen::drawCard(int16_t x, int16_t y, Card* card) {
   gb.display.drawImage(x, y, cardSprite);
  
-  this->drawSuit(x + 1, y + 2, card.getSuit());
-  this->drawValue(x + 5, y + 7, card.getValue(), card.isRed());
+  this->drawSuit(x + 1, y + 2, card->getColor());
+  this->drawValue(x + 5, y + 7, card->getNumber(), card->isRed());
 }
 
-void Screen::drawSuit(ushort x, ushort y, char color) {
-  suitSprite.setFrame(suit);
+void Screen::drawSuit(int16_t x, int16_t y, Suit color) {
+  suitSprite.setFrame(color);
   gb.display.drawImage(x, y, suitSprite);
 }
 
-void Screen::drawValue(ushort x, ushort y, short value, bool isRed) {
-  valueSprite.setFrame(value + (isRed ? 14 : 0));
+void Screen::drawValue(int16_t x, int16_t y, Value number, bool isRed) {
+  valueSprite.setFrame(number + (isRed ? 14 : 0));
   gb.display.drawImage(x, y, valueSprite);
   
-  if (value == ten) {
+  if (ten == number) {
     valueSprite.setFrame(isRed ? 14 : 0);
     gb.display.drawImage(x - 4, y, valueSprite);
   }
@@ -48,9 +48,6 @@ Screen::Screen(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
 
 void Screen::drawDesks()
 {  
-  //clear the screen
-  gb.display.clear();
-
   //Draw the brackground
   gb.display.drawImage(0, 0, backgroundImage);
 
@@ -61,42 +58,61 @@ void Screen::drawDesks()
   //Write placeholder' labels
   gb.display.setCursor(2, 15);
   gb.display.println("Bank: ");
-  gb.display.setCursor(2, 30);
+  gb.display.setCursor(2, 31);
   gb.display.println("You: ");
 }
 
-void Screen::updateDisplay()
+void Screen::drawLastCards(int16_t y, Desk *desk)
 {
-  return;
-  gb.display.println("Black Meta\n");
-  gb.display.print("Bank: ");
-  gb.display.println(this->bankDesk->listCardsCodes());
+  int16_t i = 0;
+  int16_t x = 25;
+  Card* card;
   
-  gb.display.print("You: ");
-  gb.display.println(this->playerDesk->listCardsCodes());
-  gb.display.println("\n");
+  while (NULL != (card = desk->getLastCard(i)) && i < 3) {
+    this->drawCard(x, y, card);
+    x += 11;
+    i++;
+  }
+}
+
+void Screen::drawActions()
+{  
+  gb.display.drawImage(0, 48, backgroundImage);
   
   switch (this->workflow->getCurrentStep()) {
     case Workflow::stepDealing:
-      gb.display.println("Dealing");
+      this->drawDesks();
       break;
     case Workflow::stepPlayerTurn:
-      gb.display.println("A - Hit | B - Stand ");
+      gb.display.setCursor(6, 50);
+      gb.display.print("A: Hit | B: Stand ");
       break;
     case Workflow::stepPlayerHit:
-      gb.display.println("Hit");
+      gb.display.setCursor(33, 50);
+      gb.display.print("Hit");
       break;
     case Workflow::stepBankDealing:
-      gb.display.println("Stand");
+      gb.display.setCursor(30, 50);
+      gb.display.print("Stand");
       break;
     case Workflow::stepEnd:
       if (this->playerDesk->hasWon(*this->bankDesk)) {
-        gb.display.printf("WIN ! (%d / %d - %d / %d)", this->playerDesk->totalMin(), this->playerDesk->totalMax(), this->bankDesk->totalMin(), this->bankDesk->totalMax());
+        gb.display.setCursor(8, 50);
+        gb.display.print("Win - Press Menu");
       } else {
-        gb.display.printf("LOST ! (%d / %d - %d / %d)", this->playerDesk->totalMin(),this->playerDesk->totalMax(),  this->bankDesk->totalMin(), this->bankDesk->totalMax());
+        gb.display.setCursor(6, 50);
+        gb.display.print("Lost - Press Menu");
       }
       
       break;
   }
+}
+
+void Screen::updateDisplay()
+{  
+  this->drawLastCards(10, this->bankDesk);
+  this->drawLastCards(27, this->playerDesk);
+  
+  this->drawActions();
 }
 

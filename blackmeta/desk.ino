@@ -125,21 +125,14 @@ bool Desk::hasWon(Desk &otherDesk)
 }
 
 /**
- * To list cards's code present in the desk, separated by a coma
+ * To get the last card of the desk, or it's previous if the offset is great than 0.
  */
-String Desk::listCardsCodes()
+Card* Desk::getLastCard(unsigned int offset) 
 {
-  String list = "";
-  
-  ushort total = 0;
-  for (short i=0; i<this->count; i++) {
-    if (i > 0) {
-      list += ',';
-    }
-    
-    list += this->cards[i]->getCode();
+  if (offset >= this->count) {
+    return NULL;
   }
 
-  return list;
+  return this->cards[this->count-offset-1];
 }
 

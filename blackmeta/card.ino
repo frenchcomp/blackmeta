@@ -19,7 +19,7 @@
 /**
  * Constructor to set mandatory color and value of this card
  */
-Card::Card(char color, short number, ushort valMin, ushort valMax) 
+Card::Card(Suit color, Value number, ushort valMin, ushort valMax)
 {
   this->color = color;
   this->number = number;
@@ -32,7 +32,7 @@ Card::Card(char color, short number, ushort valMin, ushort valMax)
  * @see the property valMin 
  * @return unsigned int between 1 and 10.
  */
-ushort Card::getMin()
+ushort Card::getMin() const
 {
   return this->valMin;
 }
@@ -42,38 +42,41 @@ ushort Card::getMin()
  * @see the property valMax 
  * @return unsigned int between 2 and 11.
  */
-ushort Card::getMax()
+ushort Card::getMax() const
 {
   return this->valMax;
 }
 
+
 /**
- * To know the identifier of this card, composed of two CHAR:
- * @return char[2]
- * First char : H=Heart, T=Tiles, L=cLover, P=Pikes
- * Second char : 1,2,3,5,6,7,8,9,T,J,Q,K     * 
+ * Return the color of this card
  */
-String Card::getCode()
+Suit Card::getColor() const
 {
-  String code = String(this->color);
-  switch (this->number) {
-    case 10:
-      return code + "T";
-      break;
-    case 11:
-      return code + "J";
-      break;
-    case 12:
-      return code + "D";
-      break;
-    case 13:
-      return code + "K";
+  return this->color;
+}
+
+/**
+ * Return the value of this card
+ */
+Value Card::getNumber() const
+{
+  return this->number;
+}
+
+/**
+ * To know if the card is red or not
+ */
+bool Card::isRed()
+{
+  switch (this->color) {
+    case spade:
+    case heart:
+      return true;
       break;
     default:
-      return code + this->number;
-      break;      
+      return false;
+      break;
   }
-
-  return String("EE");
 }
 

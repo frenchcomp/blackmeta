@@ -19,30 +19,17 @@
 /**
  * To pick randomly a color
  */
-char Dealer::randomColor()
+Suit Dealer::randomColor()
 {
-  switch (random(1, 4)) {
-    case 1:
-      return 'H'; //Heart
-      break;
-    case 2:
-      return 'T'; //Tiles
-      break;
-    case 3:
-      return 'L'; //cLover
-      break;
-    default:
-      return 'P'; //Pikes
-      break;      
-  }
+  return (Suit) random(0, 3);
 }
 
 /**
  * To pick randomly a number (1-10, J, Q, K)
  */
-ushort Dealer::randomCard()
+Value Dealer::randomCard()
 {
-  return random(1, 13);
+  return (Value) random(1, 13);
 }
 
 /**
@@ -83,7 +70,7 @@ ushort Dealer::getMaxValue(ushort card)
  */
 Card* Dealer::dealOne()
 {
-  short n = this->randomCard();
+  Value n = this->randomCard();
   
   return new Card(
     this->randomColor(),

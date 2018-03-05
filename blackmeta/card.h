@@ -17,6 +17,9 @@
 #ifndef card_h
 #define card_h
 
+enum Suit: unsigned short { spade = 0, club, heart, diamond };
+enum Value: unsigned short { ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king };
+
 /**
  * Value object to represent a card dealed by the bank to a desk. A card is defined by a color and a number (1-10, Jack, Queen, King)
  */
@@ -26,12 +29,12 @@ class  Card
     /**
      * H=Heart, T=Tiles, L=cLover, P=Pikes
      */
-    char color;
+    Suit color;
     
     /**
      * 1 = As, 11=Jack, 12=Queen, 13=King
      */
-    ushort number;
+    Value number;
 
     /**
      * If number = 1 : valMin = 1
@@ -51,29 +54,36 @@ class  Card
     /**
      * Constructor to set mandatory color and value of this card
      */
-    Card(char color, short number, ushort valMin, ushort valMax);
+    Card(Suit color, Value number, ushort valMin, ushort valMax);
 
     /**
      * To return the min value of this card. 
      * @see the property valMin 
      * @return unsigned int between 1 and 10.
      */
-    ushort getMin();
+    ushort getMin() const;
 
     /**
      * To return the max value of this card. 
      * @see the property valMax 
      * @return unsigned int between 2 and 11.
      */
-    ushort getMax();
+    ushort getMax() const;
 
     /**
-     * To know the identifier of this card, composed of two CHAR:
-     * @return char[2]
-     * First char : H=Heart, T=Tiles, L=cLover, P=Pikes
-     * Second char : 1,2,3,5,6,7,8,9,T,J,Q,K     * 
+     * Return the color of this card
      */
-    String getCode();
+    Suit getColor() const;
+
+    /**
+     * Return the value of this card
+     */
+    Value getNumber() const;
+
+    /**
+     * To know if the card is red or not
+     */
+    bool isRed();
 };
 
 #endif
