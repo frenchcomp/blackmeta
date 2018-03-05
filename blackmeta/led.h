@@ -21,6 +21,9 @@
 #include "desk.h"
 #include "workflow.h"
 
+/**
+ * Class to manage LED following workflow steps
+ */
 class Led
 {
   private:
@@ -35,7 +38,7 @@ class Led
     Led(Workflow &workflow, Desk &playerDesk, Desk &bankDesk);
 
     /**
-     * To refresh lights
+     * To refresh lights, when the user won, LED are green, if it lost, LED are red, else are White.
      */
     void updateLights();
 };
