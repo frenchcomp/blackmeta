@@ -164,11 +164,12 @@ void Screen::drawDesks()
 
   //Write title
   gb.display.clearTextVars();
-  gb.display.setColor(WHITE);
+  gb.display.setColor(BLACK);
   gb.display.setCursor(20, 2);
   gb.display.println("Black Meta");
 
   //Write placeholder' labels
+  gb.display.setColor(WHITE);
   gb.display.setCursor(2, 15);
   gb.display.println("Bank: ");
   gb.display.setCursor(2, 31);
