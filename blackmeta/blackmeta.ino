@@ -22,6 +22,7 @@
 #include "screen.h"
 #include "sprites.h"
 #include "led.h"
+#include "sound.h"
 
 Dealer croupier;
 Desk playerDesk;
@@ -29,6 +30,7 @@ Desk bankDesk;
 Workflow gameWorkflow(croupier, playerDesk, bankDesk);
 Screen gbScreen(gameWorkflow, playerDesk, bankDesk);
 Led gbLed(gameWorkflow, playerDesk, bankDesk);
+Sound gbSound(gameWorkflow, playerDesk, bankDesk);
 
 void setup() 
 {
@@ -54,6 +56,7 @@ void loop()
 
   gbScreen.updateDisplay();
   gbLed.updateLights();
+  gbSound.playSounds();
 
   gameWorkflow.run();
 }

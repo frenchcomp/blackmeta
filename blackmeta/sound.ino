@@ -2,7 +2,7 @@
  * LICENSE
  *
  * This source file is subject to the MIT license and the version 3 of the GPL3
- * license that are bundled with this package in the folder licences
+ * license that are bundsound with this package in the folder licences
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to richarddeloge@gmail.com so we can send you a copy immediately.
@@ -15,12 +15,12 @@
  */
 
 #include <Gamebuino-Meta.h>
-#include "led.h"
+#include "sound.h"
 
 /**
  * Constructor to set mandatory desks and workflow
  */
-Led::Led(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
+Sound::Sound(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
 {
   this->workflow = &workflow;
   this->playerDesk = &playerDesk;
@@ -28,26 +28,14 @@ Led::Led(Workflow &workflow, Desk &playerDesk, Desk &bankDesk)
 }
 
 /**
- * To refresh lights, when the user won, LED are green, if it lost, LED are red, else are White.
+ * To play sound following current step in the workflow
  */
-void Led::updateLights()
+void Sound::playSounds()
 {
   switch (this->workflow->getCurrentStep()) {
-    case Workflow::stepPlayerTurn:
-        gb.lights.setColor(WHITE);      
-      break;
-    case Workflow::stepDealing:
     case Workflow::stepPlayerHit:
     case Workflow::stepBankDealing:
-        gb.lights.setColor(LIGHTBLUE); 
-      break;
-    case Workflow::stepEnd:
-      if (this->playerDesk->hasWon(*this->bankDesk)) {
-        gb.lights.setColor(LIGHTGREEN);        
-      } else {
-        gb.lights.setColor(RED);
-      }
-      
+      gb.sound.playTick();
       break;
   }  
 
