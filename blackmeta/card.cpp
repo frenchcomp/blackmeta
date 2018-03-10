@@ -19,7 +19,7 @@
 /**
  * Constructor to set mandatory color and value of this card
  */
-Card::Card(Suit color, Value number, ushort valMin, ushort valMax)
+Card::Card(Suit color, Value number, unsigned short valMin, unsigned short valMax)
 {
   this->color = color;
   this->number = number;
@@ -32,7 +32,7 @@ Card::Card(Suit color, Value number, ushort valMin, ushort valMax)
  * @see the property valMin 
  * @return unsigned int between 1 and 10.
  */
-ushort Card::getMin() const
+unsigned short Card::getMin() const
 {
   return this->valMin;
 }
@@ -42,7 +42,7 @@ ushort Card::getMin() const
  * @see the property valMax 
  * @return unsigned int between 2 and 11.
  */
-ushort Card::getMax() const
+unsigned short Card::getMax() const
 {
   return this->valMax;
 }

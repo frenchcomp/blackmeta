@@ -39,12 +39,12 @@ class Dealer
     /**
      * To determine the minimum value of the card (AS can give 1 or 11 points, J,Q,K give only 10).
      */
-    ushort getMinValue(short card);
+    unsigned short getMinValue(short card);
 
     /**
      * To determine the minimum value of the card (AS can give 1 or 11 points, J,Q,K give only 10).
      */
-    ushort getMaxValue(ushort card);
+    unsigned short getMaxValue(unsigned short card);
 
   public:
     /**

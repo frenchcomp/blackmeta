@@ -15,6 +15,7 @@
  */
 
 #include "dealer.h"
+#include <Gamebuino-Meta.h>
 
 /**
  * To pick randomly a color
@@ -35,7 +36,7 @@ Value Dealer::randomCard()
 /**
  * To determine the minimum value of the card (AS can give 1 or 11 points, J,Q,K give only 10).
  */
-ushort Dealer::getMinValue(short card)
+unsigned short Dealer::getMinValue(short card)
 {
   if (1 == card) {
     return 1;
@@ -51,7 +52,7 @@ ushort Dealer::getMinValue(short card)
 /**
  * To determine the minimum value of the card (AS can give 1 or 11 points, J,Q,K give only 10).
  */
-ushort Dealer::getMaxValue(ushort card)
+unsigned short Dealer::getMaxValue(unsigned short card)
 {
   if (1 == card) {
     return 11;

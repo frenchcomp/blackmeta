@@ -41,34 +41,34 @@ class  Card
      * If number > 10 : valMin = 10
      * Else valMin = number
      */
-    ushort valMin;
+    unsigned short valMin;
 
     /**
      * If number = 1 : valMax = 11
      * If number > 10 : valMax = 10
      * Else valMin = number
      */
-    ushort valMax;
+    unsigned short valMax;
 
   public:    
     /**
      * Constructor to set mandatory color and value of this card
      */
-    Card(Suit color, Value number, ushort valMin, ushort valMax);
+    Card(Suit color, Value number, unsigned short valMin, unsigned short valMax);
 
     /**
      * To return the min value of this card. 
      * @see the property valMin 
      * @return unsigned int between 1 and 10.
      */
-    ushort getMin() const;
+    unsigned short getMin() const;
 
     /**
      * To return the max value of this card. 
      * @see the property valMax 
      * @return unsigned int between 2 and 11.
      */
-    ushort getMax() const;
+    unsigned short getMax() const;
 
     /**
      * Return the color of this card

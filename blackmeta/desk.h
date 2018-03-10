@@ -33,7 +33,7 @@ class Desk {
     /**
      * Size of the cards list
      */
-    ushort count;
+    unsigned short count;
 
   public:
     /**
@@ -54,12 +54,12 @@ class Desk {
     /**
      * To have the total of points, with AS=1 on the desk
      */
-    ushort totalMin();
+    unsigned short totalMin();
 
     /**
      * To have the total of points, with AS=11 on the desk
      */
-    ushort totalMax();
+    unsigned short totalMax();
 
     /**
      * To know if the desk is breaking (so total points exceed 21, with AS=1)

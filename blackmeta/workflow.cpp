@@ -84,7 +84,7 @@ Workflow::Workflow(Dealer &dealer, Desk &playerDesk, Desk &bankDesk)
 /**
  * To know the current step of the game
  */
-ushort Workflow::getCurrentStep()
+unsigned short Workflow::getCurrentStep()
 {
   return this->currentStep;
 }

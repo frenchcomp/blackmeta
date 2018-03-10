@@ -14,6 +14,7 @@
  * @author      Richard Déloge <richarddeloge@gmail.com>
  */
 
+#include <stdlib.h> 
 #include "desk.h"
 
 /**
@@ -57,9 +58,9 @@ bool Desk::add(Card *c)
 /**
  * To have the total of points, with AS=1 on the desk
  */
-ushort Desk::totalMin()
+unsigned short Desk::totalMin()
 {
-  ushort total = 0;
+  unsigned short total = 0;
   for (short i=0; i<this->count; i++) {
     total += this->cards[i]->getMin();
   }
@@ -70,9 +71,9 @@ ushort Desk::totalMin()
 /**
  * To have the total of points, with AS=11 on the desk
  */
-ushort Desk::totalMax()
+unsigned short Desk::totalMax()
 {
-  ushort total = 0;
+  unsigned short total = 0;
   for (short i=0; i<this->count; i++) {
     total += this->cards[i]->getMax();
   }
@@ -117,12 +118,12 @@ bool Desk::hasWon(Desk &otherDesk)
     return true;
   }
 
-  ushort myTotal = this->totalMax();
+  unsigned short myTotal = this->totalMax();
   if (21 < myTotal) {
     myTotal = this->totalMin();
   }
 
-  ushort yourTotal = otherDesk.totalMax();
+  unsigned short yourTotal = otherDesk.totalMax();
   if (21 < yourTotal) {
     yourTotal = otherDesk.totalMin();
   }

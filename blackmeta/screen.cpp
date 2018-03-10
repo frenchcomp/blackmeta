@@ -121,11 +121,11 @@ void Screen::drawPoints(int16_t y, Desk *desk)
   //Display min total
   gb.display.setColor(WHITE);
   gb.display.setCursor(60, y);
-  ushort totalMin = desk->totalMin();
+  unsigned short totalMin = desk->totalMin();
   gb.display.println(totalMin);
 
   //Display max total if diff, in red
-  ushort totalMax = desk->totalMax();
+  unsigned short totalMax = desk->totalMax();
   if (totalMin != totalMax) {
     gb.display.setCursor(71, y);
     gb.display.setColor(RED);

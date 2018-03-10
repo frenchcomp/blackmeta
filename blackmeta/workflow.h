@@ -37,7 +37,7 @@ class Workflow
     /**
      * To represent the current step of the workflow
      */
-    ushort currentStep;
+    unsigned short currentStep;
 
     /**
      * To flag buttons pressed by the user at this turn
@@ -75,11 +75,11 @@ class Workflow
     /**
      * Available steps of the workflow
      */
-    const static ushort stepDealing = 0;
-    const static ushort stepPlayerTurn = 1;
-    const static ushort stepPlayerHit = 2;
-    const static ushort stepBankDealing = 3;
-    const static ushort stepEnd = 4;
+    const static unsigned short stepDealing = 0;
+    const static unsigned short stepPlayerTurn = 1;
+    const static unsigned short stepPlayerHit = 2;
+    const static unsigned short stepBankDealing = 3;
+    const static unsigned short stepEnd = 4;
     
     /**
      * Default constructor to require dealer and desks
@@ -89,7 +89,7 @@ class Workflow
     /**
      * To know the current step of the game
      */
-    ushort getCurrentStep();
+    unsigned short getCurrentStep();
 
     /**
      * To pass the user input to the worflow to change of step if needed
